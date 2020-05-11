@@ -8,12 +8,20 @@
 </head>
 <body>
     <div id="app">
-         <cpn><button>Helloworld</button></cpn>
+         <cpn>
+        </cpn>
+        <cpn>
+          <template v-slot='sdata'>
+               <span>{{sdata.data.join(' - ')}}</span>
+          </template>
+        </cpn>
     </div>
     <template id="cpn">
         <div>
-            <slot>
-
+            <slot :data="language">
+                <ul>
+                    <li v-for='la in language'>{{la}}</li>
+                </ul>
             </slot>
         </div>
     </template>
@@ -23,7 +31,12 @@
             data:{},
             components:{
              cpn:{
-                 template:'#cpn'
+                 template:'#cpn',
+                 data(){
+                     return {
+                         language:["C#","Java","C++","Javascript","Rust"]
+                     }
+                 }
              }
             }
         })
