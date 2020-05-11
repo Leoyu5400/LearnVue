@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <cpn :cate='categories' @pclick='cpnClick'></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+           <button v-for='item in cate' @click='btnClick(item)'>{{item}}</button>
+        </div>
+    </template>
+    <script>
+        const app=new Vue({
+            el:'#app',
+            data:{
+                categories:['食品','饮料','书籍','运动']
+            },
+            components:{
+                 cpn:{
+                     template:'#cpn',
+                     data(){
+                         return{}
+                     },
+                     props:{//父传子用props
+                         cate:Array
+                     },
+                     methods:{
+                        btnClick(item){
+                            this.$emit('pclick',item)
+                        }
+                     }
+                 }
+            },
+            methods:{
+                cpnClick(item){
+                    console.log(item)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
